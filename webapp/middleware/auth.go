@@ -2,21 +2,30 @@ package middleware
 
 import (
 	"github.com/AYGA2K/photo-editor-web-app/webapp/controllers"
-	"github.com/AYGA2K/photo-editor-web-app/webapp/models"
+	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
 )
 
 func Authenticated(ctx iris.Context) {
-	json := new(models.Session)
-	if err := ctx.ReadJSON(json); err != nil {
-		ctx.JSON(iris.Map{"code": 400, "message": "Invalid JSON"})
+	sessionid := ctx.GetCookie("sessionid")
+	if sessionid == "" {
+		ctx.Redirect("/login")
 		return
 	}
-	user, err := controllers.GetUser(json.Sessionid)
+	sessionUuid, err := uuid.Parse(sessionid)
 	if err != nil {
-		ctx.JSON(iris.Map{"code": 404, "message": "User not found"})
+		ctx.Redirect("/login")
+		return
+	}
+	user, err := controllers.GetUser(sessionUuid)
+	if err != nil {
+		// ctx.JSON(iris.Map{"code": 404, "message": "User not found"})
+		// redirect to the login page if user is not authenticated
+
+		ctx.Redirect("/login")
 		return
 	}
 	ctx.Values().Set("user", user)
+
 	ctx.Next()
 }

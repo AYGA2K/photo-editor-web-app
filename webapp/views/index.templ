@@ -1,5 +1,19 @@
 package views
 
-templ Hello (name string) {
-	<div>hello ,{ name }</div>
+templ Index () {
+	@head()
+	@body()
+}
+
+templ head () {
+	<head>
+		<link href="/dist/output.css" rel="stylesheet"/>
+		<script src="/assets/js/htmx.min.js"></script>
+	</head>
+}
+
+templ body () {
+	<body>
+		<h1>Welcome </h1>
+	</body>
 }

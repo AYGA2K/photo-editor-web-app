@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/AYGA2K/photo-editor-web-app/webapp/database"
@@ -41,7 +42,7 @@ func Login(ctx iris.Context) {
 	}
 	db := database.Database.Db
 	json := new(LoginRequest)
-	if err := ctx.ReadJSON(json); err != nil {
+	if err := ctx.ReadForm(json); err != nil {
 		ctx.JSON(iris.Map{"code": 400, "message": "Invalid JSON"})
 
 		return
@@ -73,6 +74,7 @@ func Login(ctx iris.Context) {
 		Value:    session.Sessionid.String(),
 		HttpOnly: true,
 	})
+	ctx.Redirect("/")
 }
 
 func Logout(ctx iris.Context) {
@@ -103,8 +105,9 @@ func CreateUser(ctx iris.Context) {
 
 	db := database.Database.Db
 	json := new(CreateUserRequest)
-	if err := ctx.ReadJSON(json); err != nil {
-		ctx.JSON(iris.Map{"code": 400, "message": "Invalid JSON"})
+	if err := ctx.ReadForm(json); err != nil {
+		fmt.Println(json)
+		ctx.JSON(iris.Map{"code": 400, "message": err.Error()})
 		return
 	}
 	password := hashAndSalt([]byte(json.Password))
@@ -142,13 +145,14 @@ func CreateUser(ctx iris.Context) {
 	ctx.JSON(iris.Map{"code": 200, "message": "User created successfully"})
 }
 
-func GetUserInfo(ctx iris.Context) error {
+func GetUserInfo(ctx iris.Context) {
 	user, ok := ctx.Values().Get("user").(User)
 	if !ok {
 		ctx.JSON(iris.Map{"code": 400, "message": "User not found"})
 	}
 
-	return ctx.JSON(user)
+	ctx.StatusCode(iris.StatusOK)
+	ctx.JSON(user)
 }
 
 func DeleteUser(ctx iris.Context) {
