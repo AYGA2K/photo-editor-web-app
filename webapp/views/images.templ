@@ -1,0 +1,7 @@
+package views
+
+templ Images (  names []string ) {
+	for _, name := range names {
+		<img src={ "/uploads/"+name } alt="image" class="mb-2" width="30%"/>
+	}
+}

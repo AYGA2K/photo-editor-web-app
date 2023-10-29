@@ -9,23 +9,25 @@ import "context"
 import "io"
 import "bytes"
 
-var password string
-var confirmPassword string
-
 func checkPassword() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_checkPassword_3b21`,
-		Function: `function __templ_checkPassword_3b21(){// check if confirm password is equal to password 
+		Name: `__templ_checkPassword_caa3`,
+		Function: `function __templ_checkPassword_caa3(){// check if confirm password is equal to password 
 // password = document.getElementById("password");
  //confirmPassword = document.getElementById("confirmPassword");
- 
- if({ password  }.password.value != { confirmPassword }.confirmPassword.value) {
+// console log the passwordInput variable value 
+
+ if({ password  }.password.value != { confirmPassword }.confirmPassword.value ) {
  document.getElementById("passwordMismatchMessage").style.display = "block";
+ document.getElementById("signupButton").disabled = true;
+
  }
  else {
  document.getElementById("passwordMismatchMessage").style.display = "none";
+ document.getElementById("signupButton").disabled = false;
+ 
  }}`,
-		Call: templ.SafeScript(`__templ_checkPassword_3b21`),
+		Call: templ.SafeScript(`__templ_checkPassword_caa3`),
 	}
 }
 
@@ -90,15 +92,7 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"password\" id=\"password\" name=\"password\" value=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(password))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" oninput=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"password\" id=\"password\" name=\"password\" oninput=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -124,15 +118,7 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input class=\"w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-400\" type=\"password\" id=\"confirmPassword\" value=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(confirmPassword))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" oninput=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input class=\"w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-400\" type=\"password\" id=\"confirmPassword\" oninput=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -150,7 +136,7 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><button type=\"submit\" class=\" w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><button id=\"signupButton\" type=\"submit\" class=\" w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

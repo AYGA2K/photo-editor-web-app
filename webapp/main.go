@@ -14,6 +14,7 @@ func main() {
 
 	app.HandleDir("/dist", "./dist")
 	app.HandleDir("/assets", "./assets")
+	app.HandleDir("/uploads", "./uploads")
 	// app.Use(middleware.Security)
 	router.Routes(app)
 	router.Views(app)

@@ -142,18 +142,19 @@ func CreateUser(ctx iris.Context) {
 		Value:    session.Sessionid.String(),
 		HttpOnly: true,
 	})
-	ctx.JSON(iris.Map{"code": 200, "message": "User created successfully"})
+	// ctx.JSON(iris.Map{"code": 200, "message": "User created successfully"})
+	ctx.Redirect("/login")
 }
 
-func GetUserInfo(ctx iris.Context) {
-	user, ok := ctx.Values().Get("user").(User)
-	if !ok {
-		ctx.JSON(iris.Map{"code": 400, "message": "User not found"})
-	}
-
-	ctx.StatusCode(iris.StatusOK)
-	ctx.JSON(user)
-}
+// func GetUserInfo(ctx iris.Context) {
+// 	user, ok := ctx.Values().Get("user").(User)
+// 	if !ok {
+// 		ctx.JSON(iris.Map{"code": 400, "message": "User not found"})
+// 	}
+//
+// 	ctx.StatusCode(iris.StatusOK)
+// 	ctx.JSON(user)
+// }
 
 func DeleteUser(ctx iris.Context) {
 	type DeleteUserRequest struct {

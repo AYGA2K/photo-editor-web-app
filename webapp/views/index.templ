@@ -14,6 +14,14 @@ templ head () {
 
 templ body () {
 	<body>
-		<h1>Welcome </h1>
+		<nav class="bg-gray-700 py-4">
+			<div class=" flex justify-around items-center">
+				<div hx-trigger="click" hx-get="/home" hx-target="#app" class="cursor-pointer text-white  font-semibold hover:text-sky-600">Home</div>
+				<div hx-trigger="click" hx-get="/profile" hx-target="#app" class="cursor-pointer text-white font-semibold hover:text-sky-600 ">Profile</div>
+			</div>
+		</nav>
+		<div class=" " id="app">
+			@Home()
+		</div>
 	</body>
 }
