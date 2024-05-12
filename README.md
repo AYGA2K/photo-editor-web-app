@@ -11,4 +11,4 @@ HTMX is a powerful tool that allows you to enhance web applications by leveragin
 
 ## Video Demonstration
 
-[Watch Video Demo](videos/gif.gif)
+![GIF Demo](videos/gif.gif)
